@@ -175,7 +175,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.qcom \
     fstab.qcom.ramdisk \
-    init.class_main.sh \
     init.deviceextras.rc \
     init.oem.rc \
     init.qcom.class_core.sh \
