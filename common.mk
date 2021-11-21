@@ -177,7 +177,6 @@ PRODUCT_PACKAGES += \
     fstab.qcom.ramdisk \
     init.deviceextras.rc \
     init.oem.rc \
-    init.qcom.early_boot.sh \
     init.qcom.post_boot.sh \
     init.qcom.rc \
     init.qcom.sh \
