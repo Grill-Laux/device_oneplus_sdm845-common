@@ -294,6 +294,9 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, hardware/oneplus/libqti-perfd-client/libqti-perfd-client.mk)
 $(call inherit-product, hardware/oneplus/power-libperfmgr/power-libperfmgr.mk)
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+
 # QTI fwk-detect
 PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti.vendor # Needed by CNE app
