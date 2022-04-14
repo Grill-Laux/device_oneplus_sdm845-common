@@ -311,13 +311,11 @@ PRODUCT_PACKAGES += \
     vendor_firmware_mnt_mountpoint
 
 # Power
-<<<<<<< HEAD
-PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti
-=======
 $(call inherit-product, hardware/oneplus/libqti-perfd-client/libqti-perfd-client.mk)
 $(call inherit-product, hardware/oneplus/power-libperfmgr/power-libperfmgr.mk)
->>>>>>> 3014213 (sdm845-common: Migrate to libperfmg power HAL AIDL)
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # QTI fwk-detect
 PRODUCT_PACKAGES += \
