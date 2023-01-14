@@ -242,6 +242,7 @@ PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
 TARGET_BOARD_FASTBOOT_INFO_FILE := $(LOCAL_PATH)/fastboot-info.txt
 
 PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.1-impl-mock \
     fastbootd
 
 # Gatekeeper
