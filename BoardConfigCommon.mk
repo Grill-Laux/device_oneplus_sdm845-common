@@ -40,6 +40,7 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_BOOT_HEADER_VERSION := 1
 BOARD_KERNEL_BASE := 0x00000000
+<<<<<<< HEAD
 BOARD_KERNEL_CMDLINE := \
     androidboot.configfs=true \
     androidboot.hardware=qcom \
@@ -51,12 +52,12 @@ BOARD_KERNEL_CMDLINE := \
     msm_rtb.filter=0x237 \
     service_locator.enable=1 \
     swiotlb=2048
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_CONFIG := enchilada_defconfig vendor/debugfs.config
+TARGET_KERNEL_CONFIG := vendor/enchilada_defconfig vendor/debugfs.config
 TARGET_KERNEL_SOURCE := kernel/oneplus/sdm845
 
 # Platform
