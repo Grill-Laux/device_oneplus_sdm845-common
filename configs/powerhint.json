@@ -37,7 +37,7 @@
         "9999999",
         "1459200",
         "1209600",
-        "0",
+        "0"
       ],
       "ResetOnInit": true
     },
@@ -84,7 +84,7 @@
       "Path": "/sys/class/kgsl/kgsl-3d0/idle_timer",
       "Values": [
         "10000",
-        "80"
+        "64"
       ],
       "ResetOnInit": true
     },
@@ -138,7 +138,7 @@
       "Path": "/sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent",
       "Values": [
         "80",
-        "40"
+        "50"
       ],
       "ResetOnInit": true
     },
