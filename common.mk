@@ -351,10 +351,10 @@ PRODUCT_BOOT_JARS += \
 
 # Power
 $(call inherit-product, hardware/oneplus/libqti-perfd-client/libqti-perfd-client.mk)
-$(call inherit-product, hardware/oneplus/power-libperfmgr/power-libperfmgr.mk)
 
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2.vendor
+    android.hardware.power@1.2.vendor \
+    android.hardware.power-service.oneplus-libperfmgr
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
@@ -389,7 +389,10 @@ PRODUCT_COPY_FILES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
+    hardware/google/interfaces \
+    hardware/google/pixel \
     hardware/oneplus \
+    hardware/oneplus/aidl/power-libperfmgr \
     vendor/qcom/opensource/usb/etc
 
 # Telephony
