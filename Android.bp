@@ -2,6 +2,6 @@ soong_namespace {
     imports: [
         "hardware/oneplus",
         "hardware/qcom/bootctrl",
-        "hardware/oneplus/aidl/power-libperfmgr"
+        "hardware/oneplus/power-libperfmgr"
     ]
 }
