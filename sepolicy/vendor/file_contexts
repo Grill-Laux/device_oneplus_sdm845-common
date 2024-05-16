@@ -12,16 +12,12 @@
 /dev/block/platform/soc/1d84000\.ufshc/by-name/minidump                u:object_r:rawdump_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/oem_dycnvbk             u:object_r:modem_efs_partition_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/oem_stanvbk             u:object_r:modem_efs_partition_device:s0
-/dev/block/platform/soc/1d84000\.ufshc/by-name/odm_[ab]                u:object_r:system_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/op1                     u:object_r:op1_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/op2                     u:object_r:op2_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/param                   u:object_r:param_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/reserve1                u:object_r:reserve1_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/reserve2                u:object_r:reserve2_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/spunvm                  u:object_r:efs_boot_dev:s0
-
-# Data files
-/data/per_boot(/.*)?                                                 u:object_r:per_boot_file:s0
 
 # Devices
 /dev/dash                 u:object_r:dash_device:s0
@@ -33,19 +29,11 @@
 # HALs
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.3-service\.oneplus    u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.oneplus_sdm845               u:object_r:hal_light_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.oneplus_sdm845           u:object_r:hal_lineage_livedisplay_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.oneplus                        u:object_r:hal_lineage_touch_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.camera@1\.0-service                      u:object_r:hal_cameraHIDL_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.CameraMDMHIDL@1\.0-service               u:object_r:hal_cameraHIDL_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.display@1\.0-service                     u:object_r:hal_display_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.ifaa@2\.0-service                        u:object_r:hal_ifaa_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.oneplus\.hardware\.param@1\.0-service                       u:object_r:hal_param_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.vibrator\.service\.oneplus_sdm845            u:object_r:hal_vibrator_default_exec:s0
-
-# Hexagon DSP-side executable needed for Halide operation
-# This is labeled as public_adsprpcd_file as it needs to be read by apps
-# (e.g. Google Camera App)
-/mnt/vendor/dsp/fastrpc_shell_3                                               u:object_r:public_adsprpcd_file:s0
 
 # OP1, OP2 files
 /mnt/vendor/op1(/.*)?    u:object_r:op1_file:s0

@@ -1,3 +1,0 @@
-allow vold sysfs_mmc_host:file { write };
-
-allow vold mnt_vendor_file:dir { read };
