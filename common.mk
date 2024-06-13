@@ -274,7 +274,8 @@ PRODUCT_PACKAGES += \
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0.vendor
+    android.hardware.gatekeeper@1.0.vendor \
+    libion.vendor
 
 # Google Camera
 PRODUCT_COPY_FILES += \
@@ -416,9 +417,12 @@ PRODUCT_PACKAGES += \
 
 # QMI
 PRODUCT_PACKAGES += \
+    libcurl.vendor:64 \
     libjson \
+    libjsoncpp.vendor:64 \
     libqti_vndfwk_detect \
-    libqti_vndfwk_detect.vendor
+    libqti_vndfwk_detect.vendor \
+    libsqlite.vendor:64
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/qmi/qmi_fw.conf:$(TARGET_COPY_OUT_VENDOR)/etc/qmi_fw.conf
@@ -524,6 +528,7 @@ PRODUCT_COPY_FILES += \
 # WiFi Display
 PRODUCT_PACKAGES += \
     libnl \
+    libpng.vendor:32 \
     libwfdaac_vendor
 
 PRODUCT_BOOT_JARS += \
