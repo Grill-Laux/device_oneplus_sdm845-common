@@ -247,7 +247,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.config-V5-ndk \
     vendor.qti.hardware.display.mapper@3.0.vendor \
     vendor.qti.hardware.display.mapperextensions@1.0.vendor \
-    vendor.oneplus.hardware.display@1.0.vendor
 
 # Doze
 PRODUCT_PACKAGES += \
