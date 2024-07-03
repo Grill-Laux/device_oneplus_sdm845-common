@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 
+# General build information
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_INCORRECT_PARTITION_IMAGES := true
 BOARD_VENDOR := oneplus
-
 COMMON_PATH := device/oneplus/sdm845-common
 
 # Architecture
@@ -117,6 +118,12 @@ TARGET_USES_ION := true
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
 
+# Evolution X:
+# Enable LINEAGE_BUILD
+LINEAGE_BUILD := true
+# Use mini gapps
+TARGET_USES_MINI_GAPPS := true
+
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 
@@ -213,3 +220,6 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
 include vendor/oneplus/sdm845-common/BoardConfigVendor.mk
+
+# Inherit from Lineage vendor common tree
+include vendor/lineage/config/BoardConfigLineage.mk
