@@ -14,12 +14,11 @@
 # limitations under the License.
 #
 
+# General build information
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-
+BUILD_BROKEN_DUP_RULES := true
 BOARD_VENDOR := oneplus
-
 COMMON_PATH := device/oneplus/sdm845-common
-
 TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
 
 # Architecture
@@ -220,3 +219,7 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit from the proprietary version
 include vendor/oneplus/sdm845-common/BoardConfigVendor.mk
+
+# Inherit from Lineage vendor common tree
+include vendor/lineage/config/BoardConfigLineage.mk
+
