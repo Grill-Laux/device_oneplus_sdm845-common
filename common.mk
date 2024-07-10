@@ -30,7 +30,7 @@ PRODUCT_COPY_FILES += \
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-aosp
+    $(LOCAL_PATH)/overlay-evolution
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
@@ -194,6 +194,7 @@ PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 # DeviceExtras Package
 PRODUCT_PACKAGES += \
     DeviceExtras
+# Maybe Evolution will provide oplus extras (⁠๑⁠•⁠﹏⁠•⁠)
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-org.lineageos.deviceextras_ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-org.lineageos.deviceextras_ext.xml
