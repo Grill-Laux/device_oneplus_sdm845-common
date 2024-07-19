@@ -837,10 +837,9 @@ function configure_zram_parameters() {
         let zRamSizeMB=4096
     fi
 
-    #if [ "$low_ram" == "true" ]; then
-        #echo lz4 > /sys/block/zram0/comp_algorithm
-    #fi
-    echo zstd > /sys/block/zram0/comp_algorithm
+    if [ "$low_ram" == "true" ]; then
+        echo lz4 > /sys/block/zram0/comp_algorithm
+    fi
 
     # set max_comp_streams to 8
     echo 8 > /sys/block/zram0/max_comp_streams
@@ -849,8 +848,7 @@ function configure_zram_parameters() {
         if [ -f /sys/block/zram0/use_dedup ]; then
             echo 1 > /sys/block/zram0/use_dedup
         fi
-        #echo "$zRamSizeMB""$diskSizeUnit" > /sys/block/zram0/disksize
-        echo 4002299904 > /sys/block/zram0/disksize
+        echo "$zRamSizeMB""$diskSizeUnit" > /sys/block/zram0/disksize
 
         # ZRAM may use more memory than it saves if SLAB_STORE_USER
         # debug option is enabled.
@@ -861,33 +859,8 @@ function configure_zram_parameters() {
             echo 0 > /sys/kernel/slab/zspage/store_user
         fi
 
-        echo 0 > /proc/sys/vm/page-cluster
-
         mkswap /dev/block/zram0
         swapon /dev/block/zram0 -p 32758
-    fi
-}
-
-function configure_read_ahead_kb_values() {
-    MemTotalStr=`cat /proc/meminfo | grep MemTotal`
-    MemTotal=${MemTotalStr:16:8}
-
-    dmpts=$(ls /sys/block/*/queue/read_ahead_kb | grep -e dm -e mmc)
-
-    # Set 128 for <= 3GB &
-    # set 512 for >= 4GB targets.
-    if [ $MemTotal -le 3145728 ]; then
-        echo 128 > /sys/block/mmcblk0/bdi/read_ahead_kb
-        echo 128 > /sys/block/mmcblk0rpmb/bdi/read_ahead_kb
-        for dm in $dmpts; do
-            echo 128 > $dm
-        done
-    else
-        echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
-        echo 512 > /sys/block/mmcblk0rpmb/bdi/read_ahead_kb
-        for dm in $dmpts; do
-            echo 512 > $dm
-        done
     fi
 }
 
@@ -947,7 +920,6 @@ low_ram=`getprop ro.config.low_ram`
 if [ "$ProductName" == "msmnile" ] || [ "$ProductName" == "kona" ] || [ "$ProductName" == "sdmshrike_au" ]; then
       # Enable ZRAM
       configure_zram_parameters
-      configure_read_ahead_kb_values
       echo 0 > /proc/sys/vm/page-cluster
       echo 100 > /proc/sys/vm/swappiness
 else
@@ -1061,8 +1033,6 @@ else
     echo 1 > /proc/sys/vm/watermark_scale_factor
 
     configure_zram_parameters
-
-    configure_read_ahead_kb_values
 
     enable_swap
 fi
@@ -5009,15 +4979,19 @@ case "$target" in
 
 	# configure governor settings for little cluster
 	echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-	echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/rate_limit_us
-	echo 1228800 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
+	#echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/rate_limit_us
+	echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
+	echo 500 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
+	#echo 1228800 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
 	echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/pl
         echo 576000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 	# configure governor settings for big cluster
 	echo "schedutil" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
-	echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/rate_limit_us
-	echo 1536000 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_freq
+	#echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/rate_limit_us
+	echo 20000 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/down_rate_limit_us
+	echo 500 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/up_rate_limit_us
+	#echo 1536000 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_freq
 	echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/pl
 	echo "0:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
 	echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
@@ -5086,8 +5060,14 @@ case "$target" in
 	echo 10 > /sys/class/devfreq/soc:qcom,mincpubw/polling_interval
 
 	# cpuset parameters
-        echo 0-3 > /dev/cpuset/background/cpus
+        #echo 0-3 > /dev/cpuset/background/cpus
+        #echo 0-3 > /dev/cpuset/system-background/cpus
+        echo 0-7 > /dev/cpuset/top-app/cpus
+        echo 0-3,6-7 > /dev/cpuset/foreground/boost/cpus
+        echo 0-3,6-7 > /dev/cpuset/foreground/cpus
+        echo 0-1 > /dev/cpuset/background/cpus
         echo 0-3 > /dev/cpuset/system-background/cpus
+        echo 0-3 > /dev/cpuset/restricted/cpus
 
 	# Turn off scheduler boost at the end
         echo 0 > /proc/sys/kernel/sched_boost
@@ -5105,9 +5085,6 @@ case "$target" in
         echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 	echo 100 > /proc/sys/vm/swappiness
 	echo 120 > /proc/sys/vm/watermark_scale_factor
-
-        # Enable zram
-        configure_zram_parameters
     ;;
 esac
 
@@ -6047,20 +6024,6 @@ case "$target" in
     echo 5120 > /proc/sys/vm/min_free_kbytes
      ;;
 esac
-
-# Install AdrenoTest.apk if not already installed
-if [ -f /data/prebuilt/AdrenoTest.apk ]; then
-    if [ ! -d /data/data/com.qualcomm.adrenotest ]; then
-        pm install /data/prebuilt/AdrenoTest.apk
-    fi
-fi
-
-# Install SWE_Browser.apk if not already installed
-if [ -f /data/prebuilt/SWE_AndroidBrowser.apk ]; then
-    if [ ! -d /data/data/com.android.swe.browser ]; then
-        pm install /data/prebuilt/SWE_AndroidBrowser.apk
-    fi
-fi
 
 # Change adj level and min_free_kbytes setting for lowmemory killer to kick in
 case "$target" in
