@@ -96,9 +96,6 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_product=erofs \
     POSTINSTALL_OPTIONAL_product=false \
 
-PRODUCT_PACKAGES += \
-    check_dynamic_partitions
-
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService-Soong \
