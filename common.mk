@@ -88,6 +88,17 @@ AB_OTA_POSTINSTALL_CONFIG += \
 PRODUCT_PACKAGES += \
     otapreopt_script
 
+# OPTIONAL=false so that the error in check_dynamic_partitions will be
+# propagated to OTA client.
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_product=true \
+    POSTINSTALL_PATH_product=bin/check_dynamic_partitions \
+    FILESYSTEM_TYPE_product=erofs \
+    POSTINSTALL_OPTIONAL_product=false \
+
+PRODUCT_PACKAGES += \
+    check_dynamic_partitions
+
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService-Soong \
@@ -164,6 +175,7 @@ PRODUCT_PACKAGES += \
 # Common init scripts
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    init.deviceextras.rc \
     init.oem.rc \
     init.qcom.rc \
     init.qcom.power.rc \
@@ -185,6 +197,13 @@ PRODUCT_PACKAGES += \
 
 # DebugFS
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
+
+# DeviceExtras Package
+PRODUCT_PACKAGES += \
+    DeviceExtras
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/privapp-permissions-org.lineageos.deviceextras_ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-org.lineageos.deviceextras_ext.xml
 
 # Display
 PRODUCT_PACKAGES += \
@@ -361,6 +380,10 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor \
     libsqlite.vendor:64
 
+# Retrofit Dynamic Partition
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+
 # RIL
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.5.vendor \
@@ -383,6 +406,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/oneplus \
     hardware/qcom-caf/common/libqti-perfd-client \
+    hardware/oneplus/DeviceExtras \
     vendor/qcom/opensource/usb/etc
 
 # Telephony
@@ -418,7 +442,7 @@ PRODUCT_PACKAGES += \
 
 # tri-state-key
 PRODUCT_PACKAGES += \
-    KeyHandler
+    tri-state-key_daemon.vendor
 
 # Update engine
 PRODUCT_PACKAGES += \
@@ -467,3 +491,4 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     WfdCommon
+
