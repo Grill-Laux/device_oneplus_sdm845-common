@@ -53,9 +53,10 @@ prebuilt_etc {
     vendor: true,
 }
 
-sh_binary {
-    name: "init.qcom.post_boot.sh",
-    src: "init.qcom.post_boot.sh",
+prebuilt_etc {
+    name: "init.qcom.power.rc",
+    filename: "init.qcom.power.rc",
+    src: "init.qcom.power.rc",
     vendor: true,
 }
 
